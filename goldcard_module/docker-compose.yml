@@ -1,0 +1,94 @@
+services:
+  
+  api_gateway:
+    build: ./api-gateway-service
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    volumes:
+      - "/app/node_modules" # save the compiled node_modules to anonymous volume so make sure we don't attach the volume to our host node_modules
+      - "./api-gateway-service:/usr/src/app" # link our project directory to the docker  directory so any change will get updated in the running container and also we will benefit from sourcemaps for debugging
+
+    command: npm run start:debug # override entry command if not debug
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+  
+  # don't require HTTP port to handle requests and it was communicated via NATS
+  ehr_provider:
+    build: ./provider-service
+    volumes:
+      - ./provider-service/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      POSTGRES_USER : kishok
+      POSTGRES_PASSWORD: pg$236
+      POSTGRES_HOST : postgres
+      POSTGRES_DB : healthcare_db
+      POSTGRES_PORT : 5432
+  
+  # don't require HTTP port to handle requests and it was communicated via NATS
+  insurance_payer:
+    build: ./payer-service
+    volumes:
+      - ./payer-service/src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      POSTGRES_USER : kishok
+      POSTGRES_PASSWORD: pg$236
+      POSTGRES_HOST : postgres
+      POSTGRES_DB : healthcare_db
+      POSTGRES_PORT : 5432
+  
+  # don't require HTTP port to handle requests and it was communicated via NATS
+  goldcarding:
+    build: ./goldcard-service
+    ports:
+      - "9230:9230"
+    volumes:
+      - "./goldcard-service:/usr/src/app"
+    command: npm run start:debug 
+    environment:
+      POSTGRES_USER : kishok
+      POSTGRES_PASSWORD: pg$236
+      POSTGRES_HOST : postgres
+      POSTGRES_DB : healthcare_db
+      POSTGRES_PORT : 5432
+  
+  nats:
+    image: nats
+    ports:
+      - "4222:4222"
+
+  postgres:
+    build: ./db
+    container_name: pg_container
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER : kishok
+      POSTGRES_PASSWORD: pg$236
+      POSTGRES_DB : healthcare_db
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    depends_on: [postgres]
+    ports:
+      - "8888:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "kk@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "pgadmin4"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  pg-data:
+    driver: local
+  pgadmin-data:
+  
+    
