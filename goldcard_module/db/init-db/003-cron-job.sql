@@ -22,9 +22,6 @@ $$ LANGUAGE plpgsql;
 -- Step 3: Register the cron job to run monthly
 SELECT cron.schedule(
     'check_auto_approval_requests',
-    '*/2 * * * *',
+    '0 0 1 * *',-- Monthly schedule (at midnight on the 1st day of the month)
     'SELECT provider_name , speciality , card_level from check_auto_approved_requests()'  -- Call the SQL function
 );
-
---'0 0 1 * *',  -- Monthly schedule (at midnight on the 1st day of the month)
---  false  -- Do not replace existing schedule if one exists
