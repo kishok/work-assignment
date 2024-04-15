@@ -7,7 +7,7 @@ import { ProviderCptMetricService } from "./service/provider-cpt-metrics.service
 import { ProviderCptMetricsDto } from "./dto/provider-cpt-metrics.dto";
 import { ProviderCptApprovalDto } from "./dto/provider-cpt-approval.dto";
 import { CardEvaluationService } from "./service/card-evaluation.service";
-import { sendError } from "src/helpers/request-response.utility";
+import { sendError } from "../helpers/request-response.utility";
 import { GoldCardLevelService } from "./service/card-level.service";
 
 

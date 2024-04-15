@@ -14,7 +14,8 @@ import { Payer } from './typeorm/entities/Payer';
       entities: [Payer],
       logging: true,
       username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD
+      password: process.env.POSTGRES_PASSWORD,
+      synchronize: false
     }), 
     InsurancePayerModule
   ],

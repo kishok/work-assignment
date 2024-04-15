@@ -16,7 +16,7 @@
             "port": 9229,
             "sourceMaps": true,
             "restart": true,
-            "localRoot": "${workspaceFolder}/api-gateway-service",
+            "localRoot": "${workspaceFolder}/goldcard_module/api-gateway-service",
             "remoteRoot": "/usr/src/app"
             
         },
@@ -31,9 +31,23 @@
             "port": 9230,
             "sourceMaps": true,
             "restart": true,
-            "localRoot": "${workspaceFolder}/goldcard-service",
+            "localRoot": "${workspaceFolder}/goldcard_module/goldcard-service",
             "remoteRoot": "/usr/src/app"
             
+        },
+        {
+            "name": "Debug Jest Tests",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceRoot}/goldcard_module/goldcard-service",
+            "runtimeArgs": [
+                "--inspect-brk",
+                "--experimental-vm-modules",
+                "${workspaceRoot}/goldcard_module/goldcard-service/node_modules/.bin/jest",
+                "--runInBand"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
         }
     ]
 }

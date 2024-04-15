@@ -5,7 +5,7 @@ import { CardCriteriaService } from "./service/card-rules.service";
 import { PayerCardEligibilityService } from "./service/card-eligibility.service";
 import { GoldCardingCriteria } from "./typeorm/entities/CardCriteria";
 import { PayerGoldCardingEligibility } from "./typeorm/entities/CardEligibility";
-import { NatsClientModule } from "src/nats-client/nats-client.module";
+import { NatsClientModule } from "../nats-client/nats-client.module";
 import { ProviderCptMetricService } from "./service/provider-cpt-metrics.service";
 import { ProviderCptMetrics } from "./typeorm/entities/ProviderCptMetrics";
 import { CardEvaluationService } from "./service/card-evaluation.service";

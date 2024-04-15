@@ -22,7 +22,8 @@ import { GoldCardingEvaluationResults } from './gold-card/typeorm/entities/CardE
         GoldCardingEvaluationResults],
       logging: true,
       username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD
+      password: process.env.POSTGRES_PASSWORD,
+      synchronize: false
     }), 
     GoldCardModule
   ],

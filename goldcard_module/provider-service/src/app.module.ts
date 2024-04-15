@@ -16,7 +16,8 @@ import { ProviderCptApproval } from './ehr-provider/typeorm/entities/CptApproval
       entities: [Provider,CptCode,ProviderCptApproval],
       logging: true,
       username: process.env.POSTGRES_USER,
-      password: process.env.POSTGRES_PASSWORD
+      password: process.env.POSTGRES_PASSWORD,
+      synchronize: false
     }), 
     EHRProviderModule
   ],

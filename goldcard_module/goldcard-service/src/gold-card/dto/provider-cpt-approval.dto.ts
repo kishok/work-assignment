@@ -4,7 +4,7 @@ export class ProviderCptApprovalDto {
 
   @IsOptional()
   @IsUUID()
-  id: string;
+  id?: string;
 
   @IsUUID()
   provider_id: string;
@@ -34,7 +34,7 @@ export class ProviderCptApprovalDto {
 
   @IsBoolean()
   @IsOptional()
-  approval_status: boolean;
+  approval_status?: boolean;
 
   @IsString()
   @IsOptional()
